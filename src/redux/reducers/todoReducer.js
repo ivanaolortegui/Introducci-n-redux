@@ -13,7 +13,7 @@ const initialState = {
       checked: true
     }
   ] */
- todos: JSON.parse(localStorage.getItem("todos"))
+ todos: JSON.parse(localStorage.getItem("todos")) || []
 }
 
 function todo (state = initialState, action) {
