@@ -1,22 +1,18 @@
-import { ADD_TODO, UPDATE_TODO, DELETE_TODO } from '../actions/todoActions'
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from "../actions/todoAction";
 
 const initialState = {
-/*   todos: [
-    {
-      text: 'Crear componente',
-      id: 'a1s5ds1',
-      checked: false
-    },
-    {
-      text: 'Subir videos de Lecciones',
-      id: 'saadas4',
-      checked: true
-    }
-  ] */
- todos: JSON.parse(localStorage.getItem("todos")) || []
+  /*     todos: [
+         {
+             text: 'Crear componentes',
+             id: '12345',
+             checked: false
+         }
+     ]  */
+  todos: []
 }
 
-function todo (state = initialState, action) {
+
+const todo = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
       return {
@@ -26,33 +22,31 @@ function todo (state = initialState, action) {
           ...state.todos
         ]
       }
-
-    case UPDATE_TODO:
-      console.log(action)
+    case DELETE_TODO:
       return {
         ...state,
-        todos: state.todos.map((todo) => {
-          if (action.payload.id === todo.id) {
+        todos: state.todos.filter(todo => {
+          return todo.id !== action.payload.id
+        })
+      }
+    case UPDATE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          if (action.payload.id === todo.id)
             return {
               ...todo,
               checked: !todo.checked
             }
-          }
-          return todo
-        })
-      }
-
-    case DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => {
-          return todo.id !== action.payload.id
+          return todo;
         })
       }
 
     default:
       return state
   }
+
+
 }
 
-export default todo
+export default todo;

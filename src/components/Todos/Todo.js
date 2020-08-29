@@ -1,24 +1,30 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteTodo, updateTodo } from "../../redux/actions/todoAction";
 
-const Todo = ({ todo, updateTodo, deleteTodo }) => (
-  <li className="list-group-item">
-    <input
-      type="checkbox"
-      checked={todo.checked}
-      onChange={() => {
-        updateTodo(todo);
-      }}
-    />
-    {todo.text}
-    <button
-      className="btn btn-danger"
-      onClick={() => {
-        deleteTodo(todo);
-      }}
-    >
-      X
+const Todo = ({ todo }) => {
+const dispatch = useDispatch()
+  return (
+    <li className="list-group-item">
+      <input
+        type="checkbox"
+        checked={todo.checked}
+        onChange={()=> {
+          dispatch(updateTodo(todo));
+        }}
+      />
+      {todo.text}
+      <button
+        className="btn btn-danger"
+        onClick={() => {
+          dispatch(deleteTodo(todo))
+        }}
+      >
+        X
     </button>
-  </li>
-);
+    </li>
+  )
+
+}
 
 export default Todo;
